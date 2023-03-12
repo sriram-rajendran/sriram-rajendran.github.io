@@ -36,11 +36,12 @@
 		<div>
 			<button onclick="startThalam();">Start</button>
 			<button onclick="stopThalam();">Stop</button>
+			<button onclick="resetThalam();">Reset</button>
 		</div>
 		
 		
-		<input type="range" id="myRange" name="myRange" min="1" max="200" step="1" value="80"/>
-		<p id="rangeValue">BPM: 80</p>
+		<input type="range" id="myRange" name="myRange" min="1" max="200" step="1" value="60"/>
+		<p id="rangeValue">BPM: 60</p>
 
 
 		<audio id="tick-sound" src="audio/tick.mp3"></audio>
@@ -79,7 +80,7 @@
 		}
 
 		// Call the updateContent function every second
-		let intervalId = setInterval(updateContent, 750);
+		let intervalId = setInterval(updateContent, 1000);
 		var rangeInput = document.getElementById("myRange");
 		var rangeValue = document.getElementById("rangeValue");
 
@@ -99,7 +100,14 @@
 		}
 
 		function startThalam() {
-			intervalId = setInterval(updateContent, 750);
+			clearInterval(intervalId)
+			intervalId = setInterval(updateContent, (60000 / rangeInput.value));
+		}
+
+		function resetThalam() {
+			clearInterval(intervalId)
+			index = 0
+			intervalId = setInterval(updateContent, (60000 / rangeInput.value));
 		}
 
 
