@@ -6,6 +6,7 @@
 		body {
 			background-color: black;
 			color: white;
+			font-family: 'Roboto', sans-serif;
 		}
 		.container {
 			display: flex;
@@ -20,18 +21,30 @@
 			margin-top: 100px;
 			width: 300px;
 		}
+
+		#currentStep {
+			font-size: 25px;
+		}
 	</style>
 </head>
 <body>
 	<div class="container">
 		<img id="myDiv" height="250" width="250"/>
 
-		<p>Current step: <span id="currentStep"></span></p>
+		<p id="currentStep"></p>
+		
+		<div>
+			<button onclick="startThalam();">Start</button>
+			<button onclick="stopThalam();">Stop</button>
+		</div>
+		
+		
 		<input type="range" id="myRange" name="myRange" min="1" max="200" step="1" value="80"/>
 		<p id="rangeValue">BPM: 80</p>
 
-		<audio id="tick-sound" src="audio/tick.mp3"></audio>
 
+		<audio id="tick-sound" src="audio/tick.mp3"></audio>
+		<audio id="clap-sound" src="audio/clap.mp3"></audio>
 
 	</div>
 	
@@ -51,7 +64,12 @@
 
 			var span = document.getElementById("currentStep");
 			span.textContent = index + 1;
-			document.getElementById('tick-sound').play()
+			
+			if(index === 0 || index === 4 || index === 6) {
+				document.getElementById('clap-sound').play()
+			} else {
+				document.getElementById('tick-sound').play()
+			}
 
 			// Set the div's text content to the current message
 			// div.textContent = messages[index];
@@ -75,6 +93,16 @@
 		rangeInput.addEventListener("input", function() {
 			rangeValue.innerHTML = "BPM: " + rangeInput.value;
 		});
+
+		function stopThalam() {
+			clearInterval(intervalId)
+		}
+
+		function startThalam() {
+			intervalId = setInterval(updateContent, 750);
+		}
+
+
 	</script>
 </body>
 </html>
