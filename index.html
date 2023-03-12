@@ -106,8 +106,11 @@
 
 		function resetThalam() {
 			clearInterval(intervalId)
-			index = 0
-			intervalId = setInterval(updateContent, (60000 / rangeInput.value));
+			index = 6
+			setTimeout(() => {
+				intervalId = setInterval(updateContent, (60000 / rangeInput.value));	
+			}, 2000);
+			
 		}
 
 
